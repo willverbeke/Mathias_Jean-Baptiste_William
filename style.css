@@ -48,6 +48,11 @@
   box-sizing: border-box; /* la largeur d'un élément inclut son bord et son espace intérieur */
 }
 
+/* L'attribut hidden doit toujours cacher l'élément, même si une autre règle lui donne un affichage. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   background: var(--fond);
@@ -96,11 +101,17 @@ button {
   cursor: pointer;
 }
 
-#bouton-valider {
+#bouton-valider,
+#bouton-connexion {
   background: var(--accent);
   color: var(--accent-texte);
   border-color: transparent;
   font-weight: 600;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* Contour bien visible quand on navigue au clavier */
@@ -178,4 +189,106 @@ button {
 .badge.basse {
   background: var(--basse-fond);
   color: var(--basse-texte);
+}
+
+/* ---------- Écran de connexion ---------- */
+#formulaire-connexion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 24rem;
+}
+
+#formulaire-connexion label {
+  font-weight: 600;
+}
+
+#formulaire-connexion input {
+  width: 100%;
+}
+
+#zone-creation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#bouton-connexion {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+#message-connexion {
+  min-height: 1.4em;
+  margin: 0.75rem 0;
+  color: var(--erreur);
+}
+
+#note-securite {
+  max-width: 24rem;
+  color: var(--discret);
+  font-size: 0.9rem;
+}
+
+/* Barre du haut de l'application : « Connecté : … » et bouton de déconnexion */
+#barre-utilisateur {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+}
+
+/* ---------- Règles du mot de passe et jauge ---------- */
+#titre-regles {
+  margin: 0.5rem 0 0;
+}
+
+#regles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Le symbole ✓ / ✗ est devant le texte : la couleur n'est jamais la seule information. */
+.regle-ok {
+  color: var(--basse-texte);
+}
+
+.regle-ko {
+  color: var(--discret);
+}
+
+#jauge-texte {
+  min-height: 1.4em;
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+}
+
+#jauge {
+  height: 0.6rem;
+  background: var(--bordure);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#jauge-barre {
+  width: 0;
+  height: 100%;
+}
+
+#jauge.faible #jauge-barre {
+  width: 33%;
+  background: var(--haute-texte);
+}
+
+#jauge.moyen #jauge-barre {
+  width: 66%;
+  background: var(--moyenne-texte);
+}
+
+#jauge.fort #jauge-barre {
+  width: 100%;
+  background: var(--basse-texte);
 }

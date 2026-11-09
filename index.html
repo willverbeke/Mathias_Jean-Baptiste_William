@@ -7,8 +7,46 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
+  <!-- Écran de connexion : visible tant qu'on n'est pas connecté.
+       Le titre, le bouton et la zone « création » sont réglés par connexion.js. -->
+  <main id="ecran-connexion">
     <h1>TaskFlow</h1>
+    <h2 id="titre-connexion">Connexion</h2>
+
+    <!-- method="post" : si le JavaScript ne marchait pas, le mot de passe ne partirait pas dans l'adresse de la page -->
+    <form id="formulaire-connexion" method="post">
+      <label for="identifiant">Identifiant</label>
+      <input type="text" id="identifiant" autocomplete="username" maxlength="50">
+
+      <label for="mot-de-passe">Mot de passe</label>
+      <input type="password" id="mot-de-passe" maxlength="128">
+
+      <!-- Seulement à la création du compte -->
+      <div id="zone-creation" hidden>
+        <label for="confirmation">Confirmer le mot de passe</label>
+        <input type="password" id="confirmation" autocomplete="new-password" maxlength="128">
+
+        <p id="titre-regles">Le mot de passe doit respecter ces règles :</p>
+        <ul id="regles" aria-labelledby="titre-regles"></ul>
+
+        <p id="jauge-texte" aria-live="polite"></p>
+        <div id="jauge" aria-hidden="true"><div id="jauge-barre"></div></div>
+      </div>
+
+      <button type="submit" id="bouton-connexion">Se connecter</button>
+    </form>
+
+    <p id="message-connexion" role="alert"></p>
+    <p id="note-securite">Le compte est enregistré uniquement dans ce navigateur. Utilisez un faux compte : pas de vrai mot de passe.</p>
+  </main>
+
+  <!-- L'application : cachée jusqu'à la connexion -->
+  <main id="appli" hidden>
+    <h1>TaskFlow</h1>
+    <p id="barre-utilisateur">
+      <span>Connecté : <strong id="nom-utilisateur"></strong></span>
+      <button type="button" id="bouton-deconnexion">Se déconnecter</button>
+    </p>
 
     <!-- Formulaire : sert à ajouter ET à modifier une tâche -->
     <form id="formulaire">
@@ -29,7 +67,9 @@
     <ul id="liste"></ul>
   </main>
 
-  <!-- defer : le script s'exécute après la lecture complète du HTML -->
+  <!-- defer : les scripts s'exécutent après la lecture complète du HTML, dans cet ordre.
+       app.js d'abord (les tâches), puis connexion.js (qui s'en sert). -->
   <script src="app.js" defer></script>
+  <script src="connexion.js" defer></script>
 </body>
 </html>

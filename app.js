@@ -244,15 +244,36 @@ formulaire.addEventListener("submit", (evenement) => {
   afficher();
 });
 
-// ---------- Démarrage ----------
+// ---------- Démarrage et arrêt (appelés par connexion.js) ----------
 
 champTitre.maxLength = LONGUEUR_MAX_TITRE; // le champ refuse de taper plus de caractères
-taches = charger();
-afficher();
+
+// true tant que l'utilisateur est connecté. Les tâches ne sont lues et affichées qu'à ce moment-là.
+let appliActive = false;
+
+// Après la connexion : on lit les tâches sauvegardées et on les affiche.
+function demarrerAppli() {
+  appliActive = true;
+  taches = charger();
+  afficher();
+}
+
+// Après la déconnexion : on efface les tâches de l'écran et de la mémoire
+// (elles restent sauvegardées dans le localStorage).
+function arreterAppli() {
+  appliActive = false;
+  taches = [];
+  quitterModification();
+  message.textContent = "";
+  liste.textContent = "";
+}
 
 // Si la page est ouverte dans deux onglets, l'événement « storage » prévient un onglet
 // quand l'AUTRE a changé la sauvegarde : on relit la liste pour ne pas écraser ses changements.
 window.addEventListener("storage", () => {
+  if (!appliActive) {
+    return; // personne n'est connecté : on n'affiche rien
+  }
   taches = charger();
   if (idEnEdition !== null && !taches.some((t) => t.id === idEnEdition)) {
     quitterModification(); // la tâche qu'on modifiait a été supprimée dans l'autre onglet
