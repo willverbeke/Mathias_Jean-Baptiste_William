@@ -7,27 +7,29 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>TaskFlow</h1>
+  <main>
+    <h1>TaskFlow</h1>
 
-  <!-- Formulaire : sert à ajouter ET à modifier une tâche -->
-  <form id="formulaire">
-    <input type="text" id="titre" placeholder="Titre de la tâche…" aria-label="Titre de la tâche">
-    <select id="priorite" aria-label="Priorité">
-      <option value="haute">Haute</option>
-      <option value="moyenne" selected>Moyenne</option>
-      <option value="basse">Basse</option>
-    </select>
-    <input type="date" id="echeance" aria-label="Échéance">
-    <button type="submit" id="bouton-valider">Ajouter</button>
-  </form>
+    <!-- Formulaire : sert à ajouter ET à modifier une tâche -->
+    <form id="formulaire">
+      <input type="text" id="titre" placeholder="Titre de la tâche…" aria-label="Titre de la tâche">
+      <select id="priorite" aria-label="Priorité">
+        <option value="haute">Haute</option>
+        <option value="moyenne" selected>Moyenne</option>
+        <option value="basse">Basse</option>
+      </select>
+      <input type="date" id="echeance" aria-label="Échéance">
+      <button type="submit" id="bouton-valider">Ajouter</button>
+    </form>
 
-  <!-- Message d'erreur (par exemple : titre vide) -->
-  <p id="message"></p>
+    <!-- Message d'erreur (par exemple : titre vide) -->
+    <p id="message" role="alert"></p>
 
-  <!-- La liste est remplie par app.js -->
-  <ul id="liste"></ul>
+    <!-- La liste est remplie par app.js -->
+    <ul id="liste"></ul>
+  </main>
 
-  <!-- defer : le script s'exécute quand toute la page est chargée -->
+  <!-- defer : le script s'exécute après la lecture complète du HTML -->
   <script src="app.js" defer></script>
 </body>
 </html>
