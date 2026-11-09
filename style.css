@@ -1,0 +1,5 @@
+/* Sprint 1 : une seule règle, pour voir qu'une tâche terminée est barrée. */
+/* La vraie mise en forme viendra au sprint 2. */
+.terminee {
+  text-decoration: line-through;
+}
